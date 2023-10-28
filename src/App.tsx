@@ -4,7 +4,11 @@ import { Table } from 'components/Table';
 import './index.css';
 
 function App() {
-  return <Table />;
+  return (
+    <div className={'wrapper'}>
+      <Table />
+    </div>
+  );
 }
 
 export default App;

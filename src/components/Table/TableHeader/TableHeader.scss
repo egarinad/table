@@ -1,0 +1,16 @@
+.table-header {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  &__input {
+    &_filtered-name {
+      flex: 8;
+      padding: 10px;
+    }
+    &_limit {
+      flex: 2;
+      border-left: 1px solid black;
+      text-align: center;
+    }
+  }
+}
