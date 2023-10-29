@@ -1,14 +1,19 @@
 .table-header {
   width: 100%;
   display: flex;
-  border-bottom: 1px solid black;
+  justify-content: flex-end;
+  &__inputs-container{
+    display: flex;
+    max-width: 350px;
+  }
   &__input {
+    background-color: rgba(93, 94, 92, 0.3);
+    padding: 10px;
     &_filtered-name {
-      flex: 8;
-      padding: 10px;
+      width: 70%;
     }
     &_limit {
-      flex: 2;
+      width: 30%;
       border-left: 1px solid black;
       text-align: center;
     }

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import './TableHeader.scss';
@@ -16,26 +16,36 @@ export const TableHeader = ({
   setFilteredName,
   setLimitPerPage,
 }: TableHeaderProps): ReactElement => {
-  const onLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilteredName(e.target.value);
+  const [limit, setLimit] = useState<string | undefined>(limitPerPage.toString());
+  const onFilteredNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilteredName(e.target.value.trim());
   };
+  const onLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLimitPerPage(Number(e.target.value || 10));
+  };
+  const debounceOnFilteredNameChange = debounce(onFilteredNameChange, 500);
   const debounceOnLimitChange = debounce(onLimitChange, 500);
 
   return (
     <div className={'table-header'}>
-      <input
-        className={'table-header__input table-header__input_filtered-name'}
-        onChange={debounceOnLimitChange}
-        placeholder={searchPlaceholder || 'Enter name'}
-        type={'text'}
-      />
-      <input
-        className={'table-header__input table-header__input_limit'}
-        onChange={e => setLimitPerPage(Number(e.target.value.trim()))}
-        placeholder={searchPlaceholder || 'On page'}
-        type={'number'}
-        value={limitPerPage}
-      />
+      <div className={'table-header__inputs-container'}>
+        <input
+          className={'table-header__input table-header__input_filtered-name'}
+          onChange={debounceOnFilteredNameChange}
+          placeholder={searchPlaceholder || 'Enter name'}
+          type={'text'}
+        />
+        <input
+          className={'table-header__input table-header__input_limit'}
+          onChange={e => {
+            setLimit(e.target.value);
+            debounceOnLimitChange(e);
+          }}
+          placeholder={searchPlaceholder || 'Default - 10'}
+          type={'number'}
+          value={limit}
+        />
+      </div>
     </div>
   );
 };

@@ -26,7 +26,7 @@ export const useFetchTanks = () => {
       try {
         const { data } = await axiosInstance.get<ResponseType>('', {
           params: {
-            fields: 'name, tier, nation',
+            fields: 'crew, images.contour_icon, name, nation, tier, type',
             // limit: limitPerPage,
             // page_no: pageNum,
           },
