@@ -1,21 +1,79 @@
 .table-header {
   width: 100%;
   display: flex;
-  justify-content: flex-end;
-  &__inputs-container{
+  flex-direction: column;
+  &__input-container {
     display: flex;
-    max-width: 350px;
+    justify-content: end;
   }
+
+
   &__input {
+    font-size: calc(9px + 0.4vw);
     background-color: rgba(93, 94, 92, 0.3);
     padding: 10px;
+    margin-bottom: 10px;
     &_filtered-name {
       width: 70%;
     }
     &_limit {
+      margin-left: 2px;
       width: 30%;
-      border-left: 1px solid black;
       text-align: center;
     }
+  }
+
+  &__column-names {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 20px;
+    width: 100%;
+    font-size: calc(8px + 0.4vw);
+    font-weight: bold;
+    border: 1px solid #983000;
+    text-transform: uppercase;
+    box-shadow: 1px 2px 29px 0 rgba(217, 224, 229, 0.2);
+
+  }
+
+  &__column-name {
+    padding: 10px;
+    text-align: center;
+    &_name {
+      flex: 25%;
+    }
+    &_type {
+      flex: 10%;
+    }
+    &_icon {
+      flex: 15%;
+      max-width: 90px;
+      padding-right: 15px;
+    }
+    &_tier {
+      flex: 10%;
+    }
+    &_nation {
+      flex: 10%;
+    }
+  }
+}
+
+@media (width > 768px) {
+  .table-header__input {
+    &_filtered-name {
+      max-width: 360px;
+    }
+    &_limit {
+      max-width: 120px;
+    }
+  }
+}
+
+
+@media (width < 600px) {
+  .table-header__column-name_icon {
+    display: none;
   }
 }

@@ -28,7 +28,7 @@ export const TableHeader = ({
 
   return (
     <div className={'table-header'}>
-      <div className={'table-header__inputs-container'}>
+      <div className={'table-header__input-container'}>
         <input
           className={'table-header__input table-header__input_filtered-name'}
           onChange={debounceOnFilteredNameChange}
@@ -45,6 +45,13 @@ export const TableHeader = ({
           type={'number'}
           value={limit}
         />
+      </div>
+      <div className={'table-header__column-names'}>
+        <div className={'table-header__column-name table-header__column-name_name'}>Name</div>
+        <div className={'table-header__column-name table-header__column-name_icon'}>Icon</div>
+        <div className={'table-header__column-name table-header__column-name_type'}>Type</div>
+        <div className={'table-header__column-name table-header__column-name_tier'}>Tier</div>
+        <div className={'table-header__column-name table-header__column-name_nation'}>Nation</div>
       </div>
     </div>
   );

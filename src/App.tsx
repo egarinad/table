@@ -6,7 +6,7 @@ import './index.css';
 function App() {
   return (
     <div className={'wrapper'}>
-      <Table />
+      <Table searchPlaceholder={'Custom placeholder'} />
     </div>
   );
 }

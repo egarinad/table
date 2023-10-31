@@ -35,11 +35,11 @@ export type ResponseType =
     };
 
 export enum Class {
-  'heavyTank' = '',
-  'AT-SPG' = '',
-  'mediumTank' = '',
-  'lightTank' = '',
-  'SPG' = '',
+  'heavyTank' = 'heavyTank',
+  'AT-SPG' = 'AT-SPG',
+  'mediumTank' = 'mediumTank',
+  'lightTank' = 'lightTank',
+  'SPG' = 'SPG',
 }
 
 export enum NationFlags {
