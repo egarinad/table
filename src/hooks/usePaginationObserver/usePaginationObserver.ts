@@ -1,17 +1,22 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, RefObject } from 'react';
 
-export const usePaginationObserver = () => {
+interface UsePaginationObserverReturnType {
+  elementWidth: number;
+  targetRef: RefObject<HTMLDivElement>;
+}
+
+export const usePaginationObserver = (): UsePaginationObserverReturnType => {
   const [elementWidth, setElementWidth] = useState<number>(3);
   const targetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new ResizeObserver(entries => {
       entries.forEach(entry => {
-        if (entry.contentRect.width >= 800 && elementWidth !== 9) {
+        if (entry.contentRect.width >= 900 && elementWidth !== 9) {
           setElementWidth(9);
-        } else if (entry.contentRect.width >= 600 && elementWidth !== 7) {
+        } else if (entry.contentRect.width >= 700 && elementWidth !== 7) {
           setElementWidth(7);
-        } else if (entry.contentRect.width >= 400 && elementWidth !== 5) {
+        } else if (entry.contentRect.width >= 500 && elementWidth !== 5) {
           setElementWidth(5);
         } else {
           setElementWidth(3);
