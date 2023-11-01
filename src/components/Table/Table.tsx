@@ -16,26 +16,28 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
   const [filteredName, setFilteredName] = useState('');
   const [limitPerPage, setLimitPerPage] = useState(defaultLimitPerPage || 10);
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, loading } = useFetchTanks();
-
   const ref = useRef<HTMLDivElement>(null);
+
+  const { data, error, loading } = useFetchTanks();
 
   const removeDiacritics = (text: string): string => {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   };
 
-  const currentTanks = useMemo(() => {
+  const filteredTanks = useMemo(() => {
     if (!filteredName) return data;
+
     const regex = new RegExp(filteredName, 'i'); // 'i' - флаг регистронезависимого поиска
     return data.filter(tank => regex.test(removeDiacritics(tank.name)));
   }, [data, filteredName, removeDiacritics]);
 
   const tanksOnCurrentPage = useMemo(() => {
     if (limitPerPage === 0) return [];
-    if (limitPerPage === undefined) return currentTanks;
+    if (limitPerPage === undefined) return filteredTanks;
+
     const start = limitPerPage * (currentPage - 1);
-    return currentTanks.slice(start, start + limitPerPage);
-  }, [currentPage, currentTanks, limitPerPage]);
+    return filteredTanks.slice(start, start + limitPerPage);
+  }, [currentPage, filteredTanks, limitPerPage]);
 
   return (
     <div className={'table'} ref={ref}>
@@ -50,7 +52,7 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
       <TanksList data={tanksOnCurrentPage} error={error} loading={loading} />
       {!loading && !error && !!tanksOnCurrentPage.length && (
         <Pagination
-          allItems={currentTanks}
+          allItems={filteredTanks}
           currentPage={currentPage}
           itemsPerPage={limitPerPage}
           scrollTo={() => ref.current?.scrollIntoView({ behavior: 'smooth' })}
