@@ -8,10 +8,17 @@ interface PaginationProps {
   allItems: TankType[];
   currentPage: number;
   itemsPerPage: number;
+  scrollTo: () => void;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Pagination = ({ allItems, currentPage, itemsPerPage, setCurrentPage }: PaginationProps): ReactElement => {
+export const Pagination = ({
+  allItems,
+  currentPage,
+  itemsPerPage,
+  scrollTo,
+  setCurrentPage,
+}: PaginationProps): ReactElement => {
   const [numPages, setNumPages] = useState<number>(1);
 
   const { elementWidth, targetRef } = usePaginationObserver();
@@ -23,18 +30,21 @@ export const Pagination = ({ allItems, currentPage, itemsPerPage, setCurrentPage
 
   const handlePrevClick = useCallback(() => {
     if (currentPage > 1) {
+      scrollTo();
       setCurrentPage(currentPage - 1);
     }
   }, [currentPage, setCurrentPage]);
 
   const handleNextClick = useCallback(() => {
     if (currentPage < numPages) {
+      scrollTo();
       setCurrentPage(currentPage + 1);
     }
   }, [currentPage, numPages, setCurrentPage]);
 
   const handlePageClick = useCallback(
     (page: number) => {
+      scrollTo();
       setCurrentPage(page);
     },
     [setCurrentPage]
@@ -49,7 +59,6 @@ export const Pagination = ({ allItems, currentPage, itemsPerPage, setCurrentPage
     return Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage);
   }, [currentPage, numPages, elementWidth]);
 
-  console.log(pages);
   return (
     <div className='pagination' ref={targetRef}>
       <button
@@ -73,7 +82,9 @@ export const Pagination = ({ allItems, currentPage, itemsPerPage, setCurrentPage
         <button
           className={`pagination__button ${page === currentPage ? 'pagination__button_active' : ''}`}
           key={page}
-          onClick={() => handlePageClick(page)}
+          onClick={() => {
+            handlePageClick(page);
+          }}
         >
           {page}
         </button>

@@ -8,6 +8,7 @@ interface TableHeaderProps {
   searchPlaceholder?: string;
   setFilteredName: React.Dispatch<React.SetStateAction<string>>;
   setLimitPerPage: React.Dispatch<React.SetStateAction<number>>;
+  tableName?: string;
 }
 
 export const TableHeader = ({
@@ -15,6 +16,7 @@ export const TableHeader = ({
   searchPlaceholder,
   setFilteredName,
   setLimitPerPage,
+  tableName,
 }: TableHeaderProps): ReactElement => {
   const [limit, setLimit] = useState<number | undefined>(limitPerPage);
   const onFilteredNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,19 +31,22 @@ export const TableHeader = ({
 
   return (
     <div className={'table-header'}>
-      <div className={'table-header__input-container'}>
-        <input
-          className={'table-header__input table-header__input_filtered-name'}
-          onChange={onFilteredNameChange}
-          placeholder={searchPlaceholder || 'Enter name'}
-          type={'text'}
-        />
-        <input
-          className={'table-header__input table-header__input_limit'}
-          onChange={onLimitChange}
-          placeholder={'Default - 10'}
-          value={limit}
-        />
+      <div className={'table-header__input-with-name'}>
+        {tableName && <div className={'table-header__name'}>{tableName}</div>}
+        <div className={'table-header__input-container'}>
+          <input
+            className={'table-header__input table-header__input_filtered-name'}
+            onChange={onFilteredNameChange}
+            placeholder={searchPlaceholder || 'Enter name'}
+            type={'text'}
+          />
+          <input
+            className={'table-header__input table-header__input_limit'}
+            onChange={onLimitChange}
+            placeholder={'Default - 10'}
+            value={limit}
+          />
+        </div>
       </div>
       <div className={'table-header__column-names'}>
         <div className={'table-header__column-name table-header__column-name_name'}>Name</div>

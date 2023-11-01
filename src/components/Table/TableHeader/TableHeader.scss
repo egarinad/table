@@ -2,9 +2,25 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  &__input-with-name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  &__name{
+    width: 100%;
+    font-size: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50%;
+  }
   &__input-container {
     display: flex;
     justify-content: end;
+    width: 100%;
   }
 
 
@@ -12,7 +28,6 @@
     font-size: calc(9px + 0.4vw);
     background-color: rgba(93, 94, 92, 0.3);
     padding: 10px;
-    margin-bottom: 10px;
     &_filtered-name {
       width: 70%;
     }
@@ -28,7 +43,6 @@
     align-items: center;
     justify-content: center;
     line-height: 20px;
-    width: 100%;
     font-size: calc(8px + 0.4vw);
     font-weight: bold;
     border: 1px solid #983000;
@@ -48,7 +62,6 @@
     }
     &_icon {
       flex: 15%;
-      //max-width: 90px;
       padding-right: 15px;
     }
     &_tier {
@@ -56,6 +69,18 @@
     }
     &_nation {
       flex: 10%;
+    }
+  }
+}
+
+@media (width < 768px) {
+  .table-header {
+    &__input-with-name{
+      flex-direction: column;
+    }
+    &__name {
+      max-width: 100%;
+      margin-bottom: 10px;
     }
   }
 }
