@@ -3,8 +3,6 @@ import React, { ReactElement, useMemo, useState } from 'react';
 import { useFetchTanks } from 'hooks/useFetchTanks';
 import { TableHeader } from './TableHeader';
 import { TanksList } from './TanksList';
-import { Loader } from './Loader';
-import { Error } from './Error';
 import { Pagination } from './Pagination';
 import './Table.scss';
 
@@ -30,7 +28,8 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder }: TableProps): R
   }, [data, filteredName, removeDiacritics]);
 
   const tanksOnCurrentPage = useMemo(() => {
-    if (!limitPerPage) return currentTanks;
+    if (limitPerPage === 0) return [];
+    if (limitPerPage === undefined) return currentTanks;
     const start = limitPerPage * (currentPage - 1);
     return currentTanks.slice(start, start + limitPerPage);
   }, [currentPage, currentTanks, limitPerPage]);
@@ -43,8 +42,8 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder }: TableProps): R
         setFilteredName={setFilteredName}
         setLimitPerPage={setLimitPerPage}
       />
-      {loading ? <Loader /> : error ? <Error error={error} /> : <TanksList data={tanksOnCurrentPage} />}
-      {!loading && !error && currentTanks && (
+      <TanksList data={tanksOnCurrentPage} error={error} loading={loading} />
+      {!loading && !error && !!tanksOnCurrentPage.length && (
         <Pagination
           allItems={currentTanks}
           currentPage={currentPage}

@@ -16,33 +16,30 @@ export const TableHeader = ({
   setFilteredName,
   setLimitPerPage,
 }: TableHeaderProps): ReactElement => {
-  const [limit, setLimit] = useState<string | undefined>(limitPerPage.toString());
+  const [limit, setLimit] = useState<number | undefined>(limitPerPage);
   const onFilteredNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilteredName(e.target.value.trim());
+    debounce(() => setFilteredName(e.target.value.trim()), 500)();
   };
   const onLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLimitPerPage(Number(e.target.value || 10));
+    if (/^(?:0|[1-9]\d*)$/.test(e.target.value) || e.target.value === '') {
+      setLimit(e.target.value ? Number(e.target.value) : undefined);
+      debounce(() => setLimitPerPage(Number(e.target.value || 10)), 500)();
+    }
   };
-  const debounceOnFilteredNameChange = debounce(onFilteredNameChange, 500);
-  const debounceOnLimitChange = debounce(onLimitChange, 500);
 
   return (
     <div className={'table-header'}>
       <div className={'table-header__input-container'}>
         <input
           className={'table-header__input table-header__input_filtered-name'}
-          onChange={debounceOnFilteredNameChange}
+          onChange={onFilteredNameChange}
           placeholder={searchPlaceholder || 'Enter name'}
           type={'text'}
         />
         <input
           className={'table-header__input table-header__input_limit'}
-          onChange={e => {
-            setLimit(e.target.value);
-            debounceOnLimitChange(e);
-          }}
-          placeholder={searchPlaceholder || 'Default - 10'}
-          type={'number'}
+          onChange={onLimitChange}
+          placeholder={'Default - 10'}
           value={limit}
         />
       </div>

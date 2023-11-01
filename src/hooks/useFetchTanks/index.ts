@@ -1,1 +1,1 @@
-export * from './usefetchTanks';
+export * from './useFetchTanks';

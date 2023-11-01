@@ -11,9 +11,11 @@
     }
   }
   &__no-data {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-transform: uppercase;
-    text-align: center;
-    padding: 10vh 0;
   }
 }
 
@@ -34,7 +36,6 @@
     }
     &_icon {
       flex: 15%;
-      max-width: 90px;
     }
     &_tier {
       flex: 10%;
@@ -44,6 +45,9 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: block;
+      text-align: center;
+      line-height: 30px;
     }
     &_nation {
       flex: 10%;

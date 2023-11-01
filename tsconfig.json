@@ -16,7 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": { "components/*": ["src/components/*"], "config/*": ["src/config/*"], "hooks/*": ["src/hooks/*"], "types/*": ["src/types/*"] }
+    "paths": { "assets/*": ["src/assets/*"],"components/*": ["src/components/*"], "config/*": ["src/config/*"], "hooks/*": ["src/hooks/*"], "types/*": ["src/types/*"] }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
