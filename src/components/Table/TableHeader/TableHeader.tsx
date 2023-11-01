@@ -6,6 +6,7 @@ import './TableHeader.scss';
 interface TableHeaderProps {
   limitPerPage: number;
   searchPlaceholder?: string;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   setFilteredName: React.Dispatch<React.SetStateAction<string>>;
   setLimitPerPage: React.Dispatch<React.SetStateAction<number>>;
   tableName?: string;
@@ -14,18 +15,25 @@ interface TableHeaderProps {
 export const TableHeader = ({
   limitPerPage,
   searchPlaceholder,
+  setCurrentPage,
   setFilteredName,
   setLimitPerPage,
   tableName,
 }: TableHeaderProps): ReactElement => {
   const [limit, setLimit] = useState<number | undefined>(limitPerPage);
   const onFilteredNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debounce(() => setFilteredName(e.target.value.trim()), 500)();
+    debounce(() => {
+      setCurrentPage(1);
+      setFilteredName(e.target.value.trim());
+    }, 500)();
   };
   const onLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (/^(?:0|[1-9]\d*)$/.test(e.target.value) || e.target.value === '') {
       setLimit(e.target.value ? Number(e.target.value) : undefined);
-      debounce(() => setLimitPerPage(Number(e.target.value || 10)), 500)();
+      debounce(() => {
+        setCurrentPage(1);
+        setLimitPerPage(Number(e.target.value || 10));
+      }, 500)();
     }
   };
 

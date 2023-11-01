@@ -1,5 +1,4 @@
 export type TankType = {
-  crew: Array<any>;
   images: { contour_icon: string };
   name: string;
   nation: keyof typeof NationFlags;

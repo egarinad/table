@@ -1,8 +1,8 @@
 import React from 'react';
+import { AxiosError } from 'axios';
 
 import { ErrorType } from 'types/tankTypes';
 import './Error.scss';
-import { AxiosError } from 'axios';
 
 interface ErrorProps {
   error: AxiosError | ErrorType;

@@ -18,6 +18,8 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
   const [currentPage, setCurrentPage] = useState(1);
   const { data, error, loading } = useFetchTanks();
 
+  const ref = useRef<HTMLDivElement>(null);
+
   const removeDiacritics = (text: string): string => {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   };
@@ -35,12 +37,12 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
     return currentTanks.slice(start, start + limitPerPage);
   }, [currentPage, currentTanks, limitPerPage]);
 
-  const ref = useRef<HTMLDivElement>(null);
   return (
     <div className={'table'} ref={ref}>
       <TableHeader
         limitPerPage={limitPerPage}
         searchPlaceholder={searchPlaceholder}
+        setCurrentPage={setCurrentPage}
         setFilteredName={setFilteredName}
         setLimitPerPage={setLimitPerPage}
         tableName={tableName}
