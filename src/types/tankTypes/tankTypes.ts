@@ -3,7 +3,7 @@ export type TankType = {
   name: string;
   nation: keyof typeof NationFlags;
   tier: keyof typeof Tiers;
-  type: keyof typeof Class;
+  type: keyof typeof Classes;
 };
 
 export interface DataType {
@@ -33,7 +33,7 @@ export type ResponseType =
       status: 'error';
     };
 
-export enum Class {
+export enum Classes {
   'heavyTank' = 'heavyTank',
   'AT-SPG' = 'AT-SPG',
   'mediumTank' = 'mediumTank',

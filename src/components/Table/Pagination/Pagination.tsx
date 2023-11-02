@@ -12,6 +12,28 @@ interface PaginationProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
+/**
+ * <b>Pagination</b> component for navigating through a list of items, allowing users to switch between pages.
+ *
+ * @component
+ * @example
+ * <Pagination
+ *   allItems={tankData}
+ *   currentPage={currentPage}
+ *   itemsPerPage={itemsPerPage}
+ *   scrollTo={scrollToTop}
+ *   setCurrentPage={setCurrentPage}
+ * />
+ *
+ * @param {PaginationProps} props - properties passed to the component.
+ * @param {TankType[]} props.allItems - array of items to be paginated.
+ * @param {number} props.currentPage - current active page number.
+ * @param {number} props.itemsPerPage - number of items displayed per page.
+ * @param {Function} props.scrollTo - function to scroll to the top of the component.
+ * @param {Function} props.setCurrentPage - function to update the current active page.
+ *
+ * @returns {ReactElement} Rendered Pagination component.
+ */
 export const Pagination = ({
   allItems,
   currentPage,
@@ -21,7 +43,7 @@ export const Pagination = ({
 }: PaginationProps): ReactElement => {
   const [numPages, setNumPages] = useState<number>(1);
 
-  const { elementWidth, targetRef } = usePaginationObserver();
+  const { targetRef, visiblePages } = usePaginationObserver();
 
   useEffect(() => {
     setCurrentPage(1);
@@ -52,12 +74,12 @@ export const Pagination = ({
 
   const pages = useMemo(() => {
     const startPage =
-      currentPage <= Math.floor(elementWidth / 2)
+      currentPage <= Math.floor(visiblePages / 2)
         ? 1
-        : Math.min(currentPage - Math.floor(elementWidth / 2), numPages - elementWidth + 1) || 1;
-    const endPage = Math.min(startPage + elementWidth - 1, numPages);
+        : Math.min(currentPage - Math.floor(visiblePages / 2), numPages - visiblePages + 1) || 1;
+    const endPage = Math.min(startPage + visiblePages - 1, numPages);
     return Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage);
-  }, [currentPage, numPages, elementWidth]);
+  }, [currentPage, numPages, visiblePages]);
 
   return (
     <div className='pagination' ref={targetRef}>
@@ -70,7 +92,7 @@ export const Pagination = ({
       >
         Prev
       </button>
-      {!pages.includes(1) && elementWidth > 3 && (
+      {!pages.includes(1) && visiblePages > 3 && (
         <>
           <button className={'pagination__button'} key={1} onClick={() => handlePageClick(1)}>
             1
@@ -89,7 +111,7 @@ export const Pagination = ({
           {page}
         </button>
       ))}
-      {!pages.includes(numPages) && elementWidth > 3 && (
+      {!pages.includes(numPages) && visiblePages > 3 && (
         <>
           {!pages.includes(numPages - 1) && <div className={'pagination__ellipsis'}>...</div>}
           <button className={'pagination__button'} key={numPages} onClick={() => handlePageClick(numPages)}>

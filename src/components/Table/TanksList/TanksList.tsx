@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { AxiosError } from 'axios';
 
 import { ErrorType, NationFlags, TankType, Tiers } from 'types/tankTypes';
@@ -13,7 +13,25 @@ interface TanksListProps {
   loading: boolean;
 }
 
-export const TanksList = ({ data, error, loading }: TanksListProps) => {
+/**
+ * Component for displaying a list of tanks, handling loading states, errors, and empty data scenarios.
+ *
+ * @component
+ * @example
+ * <TanksList
+ *   data={tankData}
+ *   error={errorObject}
+ *   loading={isLoading}
+ * />
+ *
+ * @param {TanksListProps} props - properties passed to the component.
+ * @param {Array<TankType>} props.data - array of tank objects to be displayed.
+ * @param {AxiosError | ErrorType | null} props.error - error object if there is an error in fetching tank data.
+ * @param {boolean} props.loading - boolean flag indicating loading state.
+ *
+ * @returns {ReactElement} Rendered TanksList component.
+ */
+export const TanksList = ({ data, error, loading }: TanksListProps): ReactElement => {
   return (
     <div className={'tank-list'}>
       {error ? (

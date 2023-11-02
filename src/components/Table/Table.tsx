@@ -1,6 +1,7 @@
 import React, { ReactElement, useMemo, useRef, useState } from 'react';
 
 import { useFetchTanks } from 'hooks/useFetchTanks';
+import { removeDiacritics } from 'helpers/removeDiacritics';
 import { TableHeader } from './TableHeader';
 import { TanksList } from './TanksList';
 import { Pagination } from './Pagination';
@@ -12,6 +13,24 @@ interface TableProps {
   tableName?: string;
 }
 
+/**
+ * A table component for displaying tank data with search, pagination, and customizable options.
+ *
+ * @component
+ * @example
+ * <Table
+ *  defaultLimitPerPage={15}
+ *  searchPlaceholder={'Custom placeholder'}
+ *  tableName={'Танкотека'}
+ * />
+ *
+ * @param {TableProps} props - properties passed to the component.
+ * @param {number} [props.defaultLimitPerPage] - initial number of items displayed per page, by default - 10.
+ * @param {string} [props.searchPlaceholder] - placeholder text for the search input field.
+ * @param {string} [props.tableName] - name of the table displayed above the data.
+ *
+ * @returns {ReactElement} Rendered Table component.
+ */
 export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: TableProps): ReactElement => {
   const [filteredName, setFilteredName] = useState('');
   const [limitPerPage, setLimitPerPage] = useState(defaultLimitPerPage || 10);
@@ -19,10 +38,6 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
   const ref = useRef<HTMLDivElement>(null);
 
   const { data, error, loading } = useFetchTanks();
-
-  const removeDiacritics = (text: string): string => {
-    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  };
 
   const filteredTanks = useMemo(() => {
     if (!filteredName) return data;
@@ -42,6 +57,7 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
   return (
     <div className={'table'} ref={ref}>
       <TableHeader
+        defaultLimitPerPage={defaultLimitPerPage}
         limitPerPage={limitPerPage}
         searchPlaceholder={searchPlaceholder}
         setCurrentPage={setCurrentPage}

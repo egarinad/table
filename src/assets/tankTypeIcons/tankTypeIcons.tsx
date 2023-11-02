@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 
-import { Class } from 'types/tankTypes';
+import { Classes } from 'types/tankTypes';
 
-export const icons: Record<keyof typeof Class, ReactElement> = {
+export const icons: Record<keyof typeof Classes, ReactElement> = {
   'AT-SPG': (
     <svg height='10' viewBox='0 0 12 10' width='12' xmlns='http://www.w3.org/2000/svg'>
       <path d='M0 0l6 10 6-10z' fill='#DFD9B7' fillRule='evenodd' />

@@ -10,7 +10,13 @@ type StateType = {
   meta: MetaType | null;
 };
 
-export const useFetchTanks = () => {
+/**
+ * Custom hook to fetch tank data.
+ *
+ * @function
+ * @returns {StateType} Object containing tank data, loading state, and error information.
+ */
+export const useFetchTanks = (): StateType => {
   const [state, setState] = useState<StateType>({
     data: [],
     error: null,

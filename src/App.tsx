@@ -6,7 +6,7 @@ import './index.css';
 function App() {
   return (
     <div className={'wrapper'}>
-      <Table searchPlaceholder={'Custom placeholder'} tableName={'Танкотека'} />
+      <Table defaultLimitPerPage={15} searchPlaceholder={'Custom placeholder'} tableName={'Танкотека'} />
     </div>
   );
 }

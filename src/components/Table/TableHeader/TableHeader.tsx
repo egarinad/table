@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce';
 import './TableHeader.scss';
 
 interface TableHeaderProps {
+  defaultLimitPerPage?: number;
   limitPerPage: number;
   searchPlaceholder?: string;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -12,7 +13,34 @@ interface TableHeaderProps {
   tableName?: string;
 }
 
+/**
+ * Table header component providing search and filter options for the tanks list table.
+ *
+ * @component
+ * @example
+ * <TableHeader
+ *   defaultLimitPerPage={15}
+ *   limitPerPage={10}
+ *   searchPlaceholder={'Enter name'}
+ *   setCurrentPage={setCurrentPageFunction}
+ *   setFilteredName={setFilteredNameFunction}
+ *   setLimitPerPage={setLimitPerPageFunction}
+ *   tableName={'Tank List'}
+ * />
+ *
+ * @param {TableHeaderProps} props - properties passed to the component.
+ * @param {number} props.defaultLimitPerPage - initial number of items displayed per page.
+ * @param {number} props.limitPerPage - current number of items displayed per page.
+ * @param {string} props.searchPlaceholder - placeholder text for the search input field.
+ * @param {React.Dispatch<React.SetStateAction<number>>} props.setCurrentPage - function to update the current active page.
+ * @param {React.Dispatch<React.SetStateAction<string>>} props.setFilteredName - function to set the filter based on tank names.
+ * @param {React.Dispatch<React.SetStateAction<number>>} props.setLimitPerPage - function to set the number of items displayed per page.
+ * @param {string} [props.tableName] - optional table name displayed above the data.
+ *
+ * @returns {ReactElement} The rendered TableHeader component.
+ */
 export const TableHeader = ({
+  defaultLimitPerPage,
   limitPerPage,
   searchPlaceholder,
   setCurrentPage,
@@ -32,7 +60,7 @@ export const TableHeader = ({
       setLimit(e.target.value ? Number(e.target.value) : undefined);
       debounce(() => {
         setCurrentPage(1);
-        setLimitPerPage(Number(e.target.value || 10));
+        setLimitPerPage(Number(e.target.value || defaultLimitPerPage || 10));
       }, 500)();
     }
   };
@@ -51,7 +79,7 @@ export const TableHeader = ({
           <input
             className={'table-header__input table-header__input_limit'}
             onChange={onLimitChange}
-            placeholder={'Default - 10'}
+            placeholder={`Default - ${defaultLimitPerPage || 10}`}
             value={limit}
           />
         </div>
