@@ -31,7 +31,6 @@ module.exports = {
       },
     },
   ],
-  parser: '@babel/eslint-parser',
   parserOptions: { requireConfigFile: false },
   plugins: ['import', 'react', 'react-hooks', 'sort-destructure-keys', '@typescript-eslint'],
   rules: {
