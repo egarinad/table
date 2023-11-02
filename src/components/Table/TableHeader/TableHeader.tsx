@@ -48,7 +48,7 @@ export const TableHeader = ({
   setLimitPerPage,
   tableName,
 }: TableHeaderProps): ReactElement => {
-  const [limit, setLimit] = useState<number | undefined>(limitPerPage);
+  const [limit, setLimit] = useState<string>(limitPerPage.toString());
   const onFilteredNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debounce(() => {
       setCurrentPage(1);
@@ -57,7 +57,7 @@ export const TableHeader = ({
   };
   const onLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (/^(?:0|[1-9]\d*)$/.test(e.target.value) || e.target.value === '') {
-      setLimit(e.target.value ? Number(e.target.value) : undefined);
+      setLimit(e.target.value || '');
       debounce(() => {
         setCurrentPage(1);
         setLimitPerPage(Number(e.target.value || defaultLimitPerPage || 10));
