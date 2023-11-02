@@ -42,7 +42,7 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
   const filteredTanks = useMemo(() => {
     if (!filteredName) return data;
 
-    const regex = new RegExp(filteredName, 'i'); // 'i' - флаг регистронезависимого поиска
+    const regex = new RegExp(filteredName, 'i');
     return data.filter(tank => regex.test(removeDiacritics(tank.name)));
   }, [data, filteredName, removeDiacritics]);
 

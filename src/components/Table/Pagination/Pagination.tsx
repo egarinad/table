@@ -82,7 +82,7 @@ export const Pagination = ({
   }, [currentPage, numPages, visiblePages]);
 
   return (
-    <div className='pagination' ref={targetRef}>
+    <div className='pagination' data-testid={'pagination'} ref={targetRef}>
       <button
         className={`pagination__button pagination__button_prev ${
           currentPage === 1 ? 'pagination__button_disabled' : ''

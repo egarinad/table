@@ -7,6 +7,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest --run",
     "preview": "vite preview",
     "prepare": "husky install",
     "typecheck": "tsc -p tsconfig.json --noEmit"
@@ -22,6 +23,8 @@
     "sass": "^1.69.4"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -36,7 +39,10 @@
     "eslint-plugin-sort-destructure-keys": "^1.5.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
+    "jsdom": "^22.1.0",
+    "msw": "^2.0.2",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^0.34.6"
   }
 }

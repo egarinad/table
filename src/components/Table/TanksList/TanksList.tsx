@@ -40,7 +40,7 @@ export const TanksList = ({ data, error, loading }: TanksListProps): ReactElemen
         <Loader />
       ) : data.length ? (
         data.map(tank => (
-          <div className={'tank-list__item item'} key={tank.name}>
+          <div className={'tank-list__item item'} data-testid={'tank-item'} key={tank.name}>
             <div className={'item__field item__field_name'}>{tank.name}</div>
             <div className={'item__field item__field_icon'}>
               <img alt={'icon'} src={tank.images.contour_icon} />
