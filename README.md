@@ -13,4 +13,6 @@ Table includes such features:
 
 1. clone repo locally `git clone git@github.com:egarinad/table.git`
 2. load node_modules using `yarn` or `npm i` 
-3. start app using `yarn start`
+3. create .env file and set your application_id <br>
+   example: VITE_APPLICATION_ID=_application_id_
+4. start app using `yarn start`
