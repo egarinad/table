@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce';
 import './TableHeader.scss';
 
 interface TableHeaderProps {
+  customClassName?: string;
   defaultLimitPerPage?: number;
   limitPerPage: number;
   searchPlaceholder?: string;
@@ -29,6 +30,7 @@ interface TableHeaderProps {
  * />
  *
  * @param {TableHeaderProps} props - properties passed to the component.
+ * @param {string} [props.customClassName] - custom class to add styles to tableHeader styles.
  * @param {number} props.defaultLimitPerPage - initial number of items displayed per page.
  * @param {number} props.limitPerPage - current number of items displayed per page.
  * @param {string} props.searchPlaceholder - placeholder text for the search input field.
@@ -40,6 +42,7 @@ interface TableHeaderProps {
  * @returns {ReactElement} The rendered TableHeader component.
  */
 export const TableHeader = ({
+  customClassName,
   defaultLimitPerPage,
   limitPerPage,
   searchPlaceholder,
@@ -66,7 +69,7 @@ export const TableHeader = ({
   };
 
   return (
-    <div className={'table-header'}>
+    <div className={`table-header ${customClassName}`}>
       <div className={'table-header__input-with-name'}>
         {tableName && <div className={'table-header__name'}>{tableName}</div>}
         <div className={'table-header__input-container'}>

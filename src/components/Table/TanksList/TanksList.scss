@@ -11,16 +11,6 @@
       border-bottom: none;
     }
   }
-  &__no-data {
-    min-height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-transform: uppercase;
-  }
-}
-
-.item {
   &__field {
     display: flex;
     align-items: center;
@@ -57,10 +47,17 @@
       }
     }
   }
+  &__no-data {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+  }
 }
 
 @media (width < 600px) {
-  .item__field_icon {
+  .tank-list__field_icon {
     display: none;
   }
 }

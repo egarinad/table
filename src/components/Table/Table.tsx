@@ -9,8 +9,12 @@ import './Table.scss';
 
 interface TableProps {
   defaultLimitPerPage?: number;
+  paginationCustomClassName?: string;
   searchPlaceholder?: string;
+  tableCustomClassName?: string;
+  tableHeaderCustomClassName?: string;
   tableName?: string;
+  tankListCustomClassName?: string;
 }
 
 /**
@@ -26,14 +30,28 @@ interface TableProps {
  *
  * @param {TableProps} props - properties passed to the component.
  * @param {number} [props.defaultLimitPerPage] - initial number of items displayed per page, by default - 10.
+ * @param {string} [props.paginationCustomClassName] - custom class to add styles to tankList styles.
  * @param {string} [props.searchPlaceholder] - placeholder text for the search input field.
+ * @param {string} [props.tableCustomClassName] - custom class to add styles to table styles.
+ * @param {string} [props.tableHeaderCustomClassName] - custom class to add styles to tankList styles.
  * @param {string} [props.tableName] - name of the table displayed above the data.
+ * @param {string} [props.tankListCustomClassName] - custom class to add styles to tankList styles.
  *
  * @returns {ReactElement} Rendered Table component.
  */
-export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: TableProps): ReactElement => {
+export const Table = ({
+  defaultLimitPerPage,
+  paginationCustomClassName,
+  searchPlaceholder,
+  tableCustomClassName,
+  tableHeaderCustomClassName,
+  tableName,
+  tankListCustomClassName,
+}: TableProps): ReactElement => {
   const [filteredName, setFilteredName] = useState('');
-  const [limitPerPage, setLimitPerPage] = useState(defaultLimitPerPage || 10);
+  const [limitPerPage, setLimitPerPage] = useState(
+    (defaultLimitPerPage !== undefined && Math.round(Math.abs(defaultLimitPerPage))) || 10
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -55,9 +73,10 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
   }, [currentPage, filteredTanks, limitPerPage]);
 
   return (
-    <div className={'table'} ref={ref}>
+    <div className={`table ${tableCustomClassName}`} ref={ref}>
       <TableHeader
-        defaultLimitPerPage={defaultLimitPerPage}
+        customClassName={tableHeaderCustomClassName}
+        defaultLimitPerPage={defaultLimitPerPage !== undefined ? Math.round(Math.abs(defaultLimitPerPage)) : undefined}
         limitPerPage={limitPerPage}
         searchPlaceholder={searchPlaceholder}
         setCurrentPage={setCurrentPage}
@@ -65,15 +84,18 @@ export const Table = ({ defaultLimitPerPage, searchPlaceholder, tableName }: Tab
         setLimitPerPage={setLimitPerPage}
         tableName={tableName}
       />
-      <TanksList data={tanksOnCurrentPage} error={error} loading={loading} />
+      <TanksList customClassName={tankListCustomClassName} data={tanksOnCurrentPage} error={error} loading={loading} />
       {!loading && !error && !!tanksOnCurrentPage.length && (
-        <Pagination
-          allItems={filteredTanks}
-          currentPage={currentPage}
-          itemsPerPage={limitPerPage}
-          scrollTo={() => ref.current?.scrollIntoView({ behavior: 'smooth' })}
-          setCurrentPage={setCurrentPage}
-        />
+        <div className={'table__pagination'}>
+          <Pagination
+            allItems={filteredTanks}
+            currentPage={currentPage}
+            customClassName={paginationCustomClassName}
+            itemsPerPage={limitPerPage}
+            scrollTo={() => ref.current?.scrollIntoView({ behavior: 'smooth' })}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       )}
     </div>
   );

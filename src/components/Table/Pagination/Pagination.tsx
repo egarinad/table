@@ -7,6 +7,7 @@ import './Pagination.scss';
 interface PaginationProps {
   allItems: TankType[];
   currentPage: number;
+  customClassName?: string;
   itemsPerPage: number;
   scrollTo: () => void;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -28,6 +29,7 @@ interface PaginationProps {
  * @param {PaginationProps} props - properties passed to the component.
  * @param {TankType[]} props.allItems - array of items to be paginated.
  * @param {number} props.currentPage - current active page number.
+ * @param {string} [props.customClassName] - custom class to add styles to pagination styles.
  * @param {number} props.itemsPerPage - number of items displayed per page.
  * @param {Function} props.scrollTo - function to scroll to the top of the component.
  * @param {Function} props.setCurrentPage - function to update the current active page.
@@ -37,6 +39,7 @@ interface PaginationProps {
 export const Pagination = ({
   allItems,
   currentPage,
+  customClassName,
   itemsPerPage,
   scrollTo,
   setCurrentPage,
@@ -82,7 +85,7 @@ export const Pagination = ({
   }, [currentPage, numPages, visiblePages]);
 
   return (
-    <div className='pagination' data-testid={'pagination'} ref={targetRef}>
+    <div className={`pagination ${customClassName}`} data-testid={'pagination'} ref={targetRef}>
       <button
         className={`pagination__button pagination__button_prev ${
           currentPage === 1 ? 'pagination__button_disabled' : ''
