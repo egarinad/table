@@ -8,7 +8,7 @@
     justify-content: space-between;
     margin-bottom: 10px;
   }
-  &__name{
+  &__name {
     width: 100%;
     font-size: 30px;
     white-space: nowrap;
@@ -20,7 +20,6 @@
     justify-content: end;
     width: 100%;
   }
-
 
   &__input {
     font-size: calc(9px + 0.4vw);
@@ -46,7 +45,6 @@
     border: 1px solid #983000;
     text-transform: uppercase;
     box-shadow: 1px 2px 29px 0 rgba(217, 224, 229, 0.2);
-
   }
 
   &__column-name {
@@ -73,7 +71,7 @@
 
 @media (width < 768px) {
   .table-header {
-    &__input-with-name{
+    &__input-with-name {
       flex-direction: column;
     }
     &__name {
@@ -93,7 +91,6 @@
     }
   }
 }
-
 
 @media (width < 600px) {
   .table-header__column-name_icon {
