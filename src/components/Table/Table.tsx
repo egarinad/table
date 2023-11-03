@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo, useRef, useState } from 'react';
 
 import { useFetchTanks } from 'hooks/useFetchTanks';
-import { removeDiacritics } from 'helpers/removeDiacritics';
+import { escapeRegexSpecialCharacters, removeDiacritics } from 'helpers';
 import { TableHeader } from './TableHeader';
 import { TanksList } from './TanksList';
 import { Pagination } from './Pagination';
@@ -60,9 +60,9 @@ export const Table = ({
   const filteredTanks = useMemo(() => {
     if (!filteredName) return data;
 
-    const regex = new RegExp(filteredName, 'i');
+    const regex = new RegExp(escapeRegexSpecialCharacters(filteredName), 'i');
     return data.filter(tank => regex.test(removeDiacritics(tank.name)));
-  }, [data, filteredName, removeDiacritics]);
+  }, [data, escapeRegexSpecialCharacters, filteredName, removeDiacritics]);
 
   const tanksOnCurrentPage = useMemo(() => {
     if (limitPerPage === 0) return [];

@@ -1,4 +1,5 @@
 import { expect, describe, it } from 'vitest';
+
 import { removeDiacritics } from './removeDiacritics';
 
 describe('removeDiacritics', () => {

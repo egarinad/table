@@ -1,3 +1,4 @@
+import { escapeRegexSpecialCharacters } from './escapeRegexSpecialCharacters';
 import { removeDiacritics } from './removeDiacritics';
 
-export { removeDiacritics };
+export { escapeRegexSpecialCharacters, removeDiacritics };
