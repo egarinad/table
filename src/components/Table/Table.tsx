@@ -73,7 +73,7 @@ export const Table = ({
   }, [currentPage, filteredTanks, limitPerPage]);
 
   return (
-    <div className={`table ${tableCustomClassName}`} ref={ref}>
+    <div className={`table ${tableCustomClassName || ''}`} ref={ref}>
       <TableHeader
         customClassName={tableHeaderCustomClassName}
         defaultLimitPerPage={defaultLimitPerPage !== undefined ? Math.round(Math.abs(defaultLimitPerPage)) : undefined}

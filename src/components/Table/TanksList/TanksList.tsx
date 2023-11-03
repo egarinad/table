@@ -35,7 +35,7 @@ interface TanksListProps {
  */
 export const TanksList = ({ customClassName, data, error, loading }: TanksListProps): ReactElement => {
   return (
-    <div className={`tank-list ${customClassName}`}>
+    <div className={`tank-list ${customClassName || ''}`}>
       {error ? (
         <Error error={error} />
       ) : loading ? (

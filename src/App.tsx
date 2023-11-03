@@ -9,7 +9,7 @@ function App() {
       <Table
         defaultLimitPerPage={15}
         searchPlaceholder={'Custom placeholder'}
-        // tableClassName={'tableCustomStyle'}
+        // tableCustomClassName={'tableCustomStyle'}
         tableName={'Танкотека'}
       />
     </div>

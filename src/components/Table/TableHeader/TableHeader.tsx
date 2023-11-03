@@ -69,7 +69,7 @@ export const TableHeader = ({
   };
 
   return (
-    <div className={`table-header ${customClassName}`}>
+    <div className={`table-header ${customClassName || ''}`}>
       <div className={'table-header__input-with-name'}>
         {tableName && <div className={'table-header__name'}>{tableName}</div>}
         <div className={'table-header__input-container'}>
